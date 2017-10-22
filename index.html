@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/botui/build/botui.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/botui/build/botui-theme-default.css">
+    <style>
+        h3 {
+            text-align: center;
+            font-size: 32px;
+        }
+    </style>
+    <title>Bot talk with bot!</title>
+</head>
+
+<body>
+    <div id="main">
+        <h3 id="user"></h3>
+        <div id="botui">
+           <bot-ui></bot-ui>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+        <script src="https://unpkg.com/botui/build/botui.min.js"></script>
+    </div>
+    <script>
+        const BASE_URL = 'http://localhost:8000';
+        const socket = io(BASE_URL);
+        const botui = new BotUI('botui');
+
+        $.post(`${BASE_URL}/start`).then(data => {
+            $('#user').text(data.session);
+
+            socket.on('message', message => {
+                let isBot = message.user === 'gyant';
+                if (data.session === message.session) {
+                    if(isBot) {
+                        botui.message.add({ 
+                            delay: 500,
+                            loading: true,
+                            content: message.text 
+                        });
+                    } else {
+                        botui.message.add({ 
+                            delay: 500,
+                            human: true,
+                            content: message.text 
+                        });
+                    }
+                }
+
+                $('html, body').animate({scrollTop:$(document).height()}, 'slow');
+            });
+        });
+    </script>
+    
+</body>
+</html>

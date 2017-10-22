@@ -1,0 +1,30 @@
+{
+  "name": "BotToBot",
+  "version": "1.0.0",
+  "description": "A chatbot that talk with Gyant (health robot) bot",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "keywords": [
+    "chatbot",
+    "nodejs"
+  ],
+  "author": "Zahidul Islam <zahidsharp@outlook.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "1.18.2",
+    "dotenv": "4.0.0",
+    "express": "4.16.2",
+    "request": "2.83.0",
+    "request-promise": "4.2.2",
+    "socket.io": "2.0.3",
+    "winston": "2.4.0"
+  },
+  "devDependencies": {
+    "chai": "4.1.2",
+    "chai-http": "3.0.0",
+    "mocha": "4.0.1"
+  }
+}
